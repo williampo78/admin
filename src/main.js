@@ -2,6 +2,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import { createPinia } from 'pinia'
+
 const app = createApp(App);
 
 // bootstrap
@@ -49,8 +51,8 @@ import 'vue3-form-wizard/dist/style.css';
 
 // set default settings
 import appSetting from './app-setting';
-import { createPinia } from 'pinia'
 window.$appSetting = appSetting;
-window.$appSetting.init();
 
 app.use(store).use(createPinia()).use(router).use(i18n).use(PerfectScrollbar).use(VueNouislider).use(Maska).use(ClientTable).use(vue3JsonExcel).use(VueFormWizard).use(head).mount('#app');
+
+window.$appSetting.init();

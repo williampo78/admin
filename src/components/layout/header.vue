@@ -61,7 +61,7 @@
 
                 <div class="navbar-item flex-row ms-md-auto">
                     <div class="dark-mode d-flex align-items-center">
-                        <a v-if="$store.state.dark_mode == 'light'" href="javascript:;" class="d-flex align-items-center" @click="toggleMode('dark')">
+                        <a v-if="settings.dark_mode == 'light'" href="javascript:;" class="d-flex align-items-center" @click="toggleMode('dark')">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -86,7 +86,7 @@
                             </svg>
                             <span class="ms-2">Light</span>
                         </a>
-                        <a v-if="$store.state.dark_mode == 'dark'" href="javascript:;" class="d-flex align-items-center" @click="toggleMode('system')">
+                        <a v-if="settings.dark_mode == 'dark'" href="javascript:;" class="d-flex align-items-center" @click="toggleMode('system')">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -103,7 +103,7 @@
                             </svg>
                             <span class="ms-2">Dark</span>
                         </a>
-                        <a v-if="$store.state.dark_mode == 'system'" href="javascript:;" class="d-flex align-items-center" @click="toggleMode('light')">
+                        <a v-if="settings.dark_mode == 'system'" href="javascript:;" class="d-flex align-items-center" @click="toggleMode('light')">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -1075,10 +1075,12 @@
 </template>
 
 <script setup>
+    import { useSettings } from '@/stores';
     import { onMounted, ref } from 'vue';
     import { useI18n } from 'vue-i18n';
     import { useStore } from 'vuex';
     const store = useStore();
+    const settings = useSettings();
 
     const selectedLang = ref(null);
     const countryList = ref(store.state.countryList);

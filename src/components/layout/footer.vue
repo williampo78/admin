@@ -26,13 +26,3 @@
     </div>
     <!-- END FOOTER -->
 </template>
-
-<script>
-    import { useStore } from '@/stores/index.js';
-    export default {
-        setup() {
-            const store = useStore();
-            console.log(store.layout);
-        },
-    };
-</script>

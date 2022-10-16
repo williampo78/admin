@@ -1,32 +1,38 @@
 import store from './store';
+import { useSettings } from './stores';
+
 import { $themeConfig } from '@themeConfig';
 
 export default {
     init() {
         // set default styles
+        const settings = useSettings();
         let val = localStorage.getItem('dark_mode'); // light, dark, system
         if (!val) {
             val = $themeConfig.theme;
         }
-        store.commit('toggleDarkMode', val);
+        settings.toggleDarkMode(val);
+        // store.commit('toggleDarkMode', val);
 
         val = localStorage.getItem('menu_style'); // vertical, collapsible-vertical, horizontal
         if (!val) {
             val = $themeConfig.navigation;
         }
-        store.commit('toggleMenuStyle', val);
+        // store.commit('toggleMenuStyle', val);
+        settings.toggleMenuStyle(val);
 
         val = localStorage.getItem('layout_style'); // full, boxed-layout, large-boxed-layout
         if (!val) {
             val = $themeConfig.layout;
         }
-        store.commit('toggleLayoutStyle', val);
+        // store.commit('toggleLayoutStyle', val);
+        settings.toggleLayoutStyle(val);
 
         val = localStorage.getItem('i18n_locale'); // en, da, de, el, es, fr, hu, it, ja, pl, pt, ru, sv, tr, zh
         if (!val) {
             val = $themeConfig.lang;
 
-            const list = store.state.countryList;
+            const list = settings.countryList;
             const item = list.find((item) => item.code === val);
             if (item) {
                 this.toggleLanguage(item);
@@ -35,30 +41,35 @@ export default {
     },
 
     toggleLanguage(item) {
+        const settings = useSettings();
+
         let lang = null;
         if (item) {
             lang = item;
         } else {
-            let code = store.state.locale;
+            let code = settings.locale;
             if (!code) {
                 code = localStorage.getItem('i18n_locale');
             }
 
-            item = store.state.countryList.find((d) => d.code === code);
+            item = settings.countryList.find((d) => d.code === code);
             if (item) {
                 lang = item;
             }
         }
 
         if (!lang) {
-            lang = store.state.countryList.find((d) => d.code === 'en');
+            lang = settings.countryList.find((d) => d.code === 'en');
         }
 
-        store.commit('toggleLocale', lang.code);
+        // store.commit('toggleLocale', lang.code);
+        settings.toggleLocale(lang.code);
         return lang;
     },
 
     toggleMode(mode) {
+        console.log('mode', mode);
+        const settings = useSettings();
         if (!mode) {
             let val = localStorage.getItem('dark_mode'); //light|dark|system
             mode = val;
@@ -66,7 +77,10 @@ export default {
                 mode = 'light';
             }
         }
-        store.commit('toggleDarkMode', mode || 'light');
+        // store.commit('toggleDarkMode', mode || 'light');
+        // mode = mode || 'light';
+        settings.toggleDarkMode(mode || 'light');
+        // console.log('mode', mode);
         return mode;
     },
 };
