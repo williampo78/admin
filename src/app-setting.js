@@ -1,4 +1,3 @@
-import store from './store';
 import { useSettings } from './stores';
 
 import { $themeConfig } from '@themeConfig';
@@ -12,20 +11,17 @@ export default {
             val = $themeConfig.theme;
         }
         settings.toggleDarkMode(val);
-        // store.commit('toggleDarkMode', val);
 
         val = localStorage.getItem('menu_style'); // vertical, collapsible-vertical, horizontal
         if (!val) {
             val = $themeConfig.navigation;
         }
-        // store.commit('toggleMenuStyle', val);
         settings.toggleMenuStyle(val);
 
         val = localStorage.getItem('layout_style'); // full, boxed-layout, large-boxed-layout
         if (!val) {
             val = $themeConfig.layout;
         }
-        // store.commit('toggleLayoutStyle', val);
         settings.toggleLayoutStyle(val);
 
         val = localStorage.getItem('i18n_locale'); // en, da, de, el, es, fr, hu, it, ja, pl, pt, ru, sv, tr, zh
@@ -62,13 +58,11 @@ export default {
             lang = settings.countryList.find((d) => d.code === 'en');
         }
 
-        // store.commit('toggleLocale', lang.code);
         settings.toggleLocale(lang.code);
         return lang;
     },
 
     toggleMode(mode) {
-        console.log('mode', mode);
         const settings = useSettings();
         if (!mode) {
             let val = localStorage.getItem('dark_mode'); //light|dark|system
@@ -77,10 +71,7 @@ export default {
                 mode = 'light';
             }
         }
-        // store.commit('toggleDarkMode', mode || 'light');
-        // mode = mode || 'light';
         settings.toggleDarkMode(mode || 'light');
-        // console.log('mode', mode);
         return mode;
     },
 };

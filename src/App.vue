@@ -1,5 +1,5 @@
 <template>
-    <div :class="[$store.state.layout_style, $store.state.menu_style]">
+    <div :class="[settings.layout_style, settings.menu_style]">
         <component v-bind:is="layout"></component>
     </div>
 </template>
@@ -9,15 +9,16 @@
     import '@/assets/sass/app.scss';
 
     import { useMeta } from '@/composables/use-meta';
-    import { useStore } from 'vuex';
+    import { useSettings } from './stores';
 
+    const settings = useSettings();
+    console.log(settings.layout)
     useMeta({ title: 'Sales Admin' });
 
-    const store = useStore();
-
     const layout = computed(() => {
-        return store.getters.layout;
+        return settings.getLayout;
     });
+
 </script>
 <script>
     // layouts

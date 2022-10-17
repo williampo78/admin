@@ -395,11 +395,14 @@ series_8: [44, 55, 67, 83],
 
     import apexchart from 'vue3-apexcharts';
     import { useStore } from 'vuex';
+    import { useSettings } from '@/stores'
 
     import { useMeta } from '@/composables/use-meta';
     useMeta({ title: 'Apex Chart' });
 
     const store = useStore();
+    const settings = useSettings()
+
 
     const code_arr = ref([]);
     //Simple Line

@@ -37,7 +37,7 @@
                 <p class="small text-muted mb-3">Overall light or dark presentation.</p>
                 <div class="btn-group-toggle row mb-4 mx-0">
                     <div class="text-color radio-primary col-6 ps-0 mb-3 custom-control custom-radio">
-                        <input type="radio" id="light_mode" v-model="$store.state.dark_mode" class="custom-control-input" value="light" @change="setTemplateStyle" />
+                        <input type="radio" id="light_mode" v-model="settings.dark_mode" class="custom-control-input" value="light" @change="setTemplateStyle" />
                         <label class="custom-control-label" for="light_mode">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@
                         </label>
                     </div>
                     <div class="text-color radio-primary col-6 ps-0 mb-3 custom-control custom-radio">
-                        <input type="radio" id="dark_mode" v-model="$store.state.dark_mode" class="custom-control-input" value="dark" @change="setTemplateStyle" />
+                        <input type="radio" id="dark_mode" v-model="settings.dark_mode" class="custom-control-input" value="dark" @change="setTemplateStyle" />
                         <label class="custom-control-label" for="dark_mode">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +85,7 @@
                         </label>
                     </div>
                     <div class="text-color radio-primary col-12 ps-0 custom-control custom-radio">
-                        <input type="radio" id="system_mode" v-model="$store.state.dark_mode" class="custom-control-input" value="system" @change="setTemplateStyle" />
+                        <input type="radio" id="system_mode" v-model="settings.dark_mode" class="custom-control-input" value="system" @change="setTemplateStyle" />
                         <label class="custom-control-label" for="system_mode">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -110,15 +110,15 @@
                 <p class="small text-muted mb-3">Select the primary navigation paradigm for your app.</p>
                 <div class="btn-group-toggle row mb-4 mx-0">
                     <div class="text-color radio-primary col-6 ps-0 mb-3 custom-control custom-radio">
-                        <input type="radio" id="horizontal" v-model="$store.state.menu_style" class="custom-control-input" value="horizontal" @change="setMenuStyle" />
+                        <input type="radio" id="horizontal" v-model="settings.menu_style" class="custom-control-input" value="horizontal" @change="setMenuStyle" />
                         <label class="custom-control-label" for="horizontal">Horizontal</label>
                     </div>
                     <div class="text-color radio-primary col-6 ps-0 mb-3 custom-control custom-radio">
-                        <input type="radio" id="vertical" v-model="$store.state.menu_style" class="custom-control-input" value="vertical" @change="setMenuStyle" />
+                        <input type="radio" id="vertical" v-model="settings.menu_style" class="custom-control-input" value="vertical" @change="setMenuStyle" />
                         <label class="custom-control-label" for="vertical">Vertical</label>
                     </div>
                     <div class="text-color radio-primary col-12 ps-0 mb-3 custom-control custom-radio">
-                        <input type="radio" id="collapsible" v-model="$store.state.menu_style" class="custom-control-input" value="collapsible-vertical" @change="setMenuStyle" />
+                        <input type="radio" id="collapsible" v-model="settings.menu_style" class="custom-control-input" value="collapsible-vertical" @change="setMenuStyle" />
                         <label class="custom-control-label" for="collapsible">Collapsible Vertical</label>
                     </div>
                 </div>
@@ -126,15 +126,15 @@
                 <p class="small text-muted mb-3">Select the primary Layout Style for your app.</p>
                 <div class="btn-group-toggle row mx-0">
                     <div class="text-color radio-primary col-3 ps-0 mb-3 custom-control custom-radio">
-                        <input type="radio" id="boxed" v-model="$store.state.layout_style" class="custom-control-input" value="boxed-layout" @change="setLayoutStyle" />
+                        <input type="radio" id="boxed" v-model="settings.layout_style" class="custom-control-input" value="boxed-layout" @change="setLayoutStyle" />
                         <label class="custom-control-label" for="boxed">Box</label>
                     </div>
                     <div class="text-color radio-primary col-5 ps-0 mb-3 custom-control custom-radio">
-                        <input type="radio" id="largeboxed" v-model="$store.state.layout_style" class="custom-control-input" value="large-boxed-layout" @change="setLayoutStyle" />
+                        <input type="radio" id="largeboxed" v-model="settings.layout_style" class="custom-control-input" value="large-boxed-layout" @change="setLayoutStyle" />
                         <label class="custom-control-label" for="largeboxed">Large box</label>
                     </div>
                     <div class="text-color radio-primary col-4 ps-0 mb-3 custom-control custom-radio">
-                        <input type="radio" id="full" v-model="$store.state.layout_style" class="custom-control-input" value="full" @change="setLayoutStyle" />
+                        <input type="radio" id="full" v-model="settings.layout_style" class="custom-control-input" value="full" @change="setLayoutStyle" />
                         <label class="custom-control-label" for="full">Full</label>
                     </div>
                 </div>
@@ -144,10 +144,9 @@
 </template>
 
 <script setup>
-    import { onMounted, ref } from 'vue';
-
-    import { useStore } from 'vuex';
-    const store = useStore();
+    import { useSettings } from '@/stores';
+import { onMounted, ref } from 'vue';
+    const settings = useSettings()
 
     const isOpen = ref(null);
     onMounted(() => {
@@ -157,14 +156,19 @@
     });
 
     const setTemplateStyle = () => {
-        store.commit('toggleDarkMode', store.state.dark_mode);
+        settings.toggleDarkMode(settings.dark_mode)
+        console.log(settings.dark_mode)
     };
 
     const setMenuStyle = () => {
-        store.commit('toggleMenuStyle', store.state.menu_style);
+        settings.toggleMenuStyle(settings.menu_style)
+        console.log(settings.menu_style)
+
+
     };
 
     const setLayoutStyle = () => {
-        store.commit('toggleLayoutStyle', store.state.layout_style);
+             settings.toggleLayoutStyle(settings.layout_style)
+        console.log(settings.layout_style)
     };
 </script>

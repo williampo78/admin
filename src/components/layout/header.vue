@@ -14,7 +14,7 @@
                     </li>
                 </ul>
                 <div class="d-none horizontal-menu">
-                    <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom" @click="$store.commit('toggleSideBar', !$store.state.is_show_sidebar)">
+                    <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom" @click="settings.toggleSideBar(!settings.is_show_sidebar)">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -34,9 +34,9 @@
                     </a>
                 </div>
                 <ul class="navbar-item flex-row ms-md-0 ms-auto">
-                    <li class="nav-item align-self-center search-animated" :class="{ 'show-search': $store.state.is_show_search }">
+                    <li class="nav-item align-self-center search-animated" :class="{ 'show-search': settings.is_show_search }">
                         <svg
-                            @click="$store.commit('toggleSearch', !$store.state.is_show_search)"
+                            @click="settings.toggleSearch(!settings.is_show_search)"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
                             height="24"
@@ -51,7 +51,7 @@
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
-                        <form class="form-inline search-full form-inline search" :class="{ 'input-focused': $store.state.is_show_search }">
+                        <form class="form-inline search-full form-inline search" :class="{ 'input-focused': settings.is_show_search }">
                             <div class="search-bar">
                                 <input type="text" class="form-control search-form-control ms-lg-auto" placeholder="Search..." />
                             </div>
@@ -462,7 +462,7 @@
         <!--  BEGIN NAVBAR  -->
         <div class="sub-header-container">
             <header class="header navbar navbar-expand-sm">
-                <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom" @click="$store.commit('toggleSideBar', !$store.state.is_show_sidebar)">
+                <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom" @click="settings.toggleSideBar(!settings.is_show_sidebar)">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -1078,12 +1078,10 @@
     import { useSettings } from '@/stores';
     import { onMounted, ref } from 'vue';
     import { useI18n } from 'vue-i18n';
-    import { useStore } from 'vuex';
-    const store = useStore();
     const settings = useSettings();
 
     const selectedLang = ref(null);
-    const countryList = ref(store.state.countryList);
+    const countryList = ref(settings.countryList);
 
     const i18n = useI18n();
 

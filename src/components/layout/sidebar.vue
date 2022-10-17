@@ -846,9 +846,9 @@
 </template>
 
 <script setup>
-    import { onMounted, ref } from 'vue';
-    import { useStore } from 'vuex';
-    const store = useStore();
+    import { useSettings } from '@/stores';
+import { onMounted, ref } from 'vue';
+    const settings = useSettings()
 
     const menu_collapse = ref('dashboard');
 
@@ -872,7 +872,7 @@
 
     const toggleMobileMenu = () => {
         if (window.innerWidth < 991) {
-            store.commit('toggleSideBar', !store.state.is_show_sidebar);
+            settings.toggleSideBar(!settings.is_show_sidebar);
         }
     };
 </script>

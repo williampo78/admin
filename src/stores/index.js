@@ -47,7 +47,6 @@ export const useSettings = defineStore('settings', {
         },
         toggleDarkMode(value) {
             //light|dark|system
-            console.log(value);
             value = value || 'light';
             localStorage.setItem('dark_mode', value);
             this.dark_mode = value;
@@ -56,6 +55,8 @@ export const useSettings = defineStore('settings', {
             } else if (value == 'dark') {
                 this.is_dark_mode = true;
             } else if (value == 'system') {
+                console.log(window.matchMedia('(prefers-color-scheme: dark)'));
+
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     this.is_dark_mode = true;
                 } else {
@@ -89,4 +90,9 @@ export const useSettings = defineStore('settings', {
             this.layout_style = value;
         },
     },
+    getters:{
+        getLayout() {
+            return this.layout
+        }
+    }
 });

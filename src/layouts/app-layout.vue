@@ -8,11 +8,11 @@
         <div
             class="main-container"
             id="container"
-            :class="[!$store.state.is_show_sidebar ? 'sidebar-closed sbar-open' : '', $store.state.menu_style === 'collapsible-vertical' ? 'collapsible-vertical-mobile' : '']"
+            :class="[!settings.is_show_sidebar ? 'sidebar-closed sbar-open' : '', settings.menu_style === 'collapsible-vertical' ? 'collapsible-vertical-mobile' : '']"
         >
             <!--  BEGIN OVERLAY  -->
-            <div class="overlay" :class="{ show: !$store.state.is_show_sidebar }" @click="$store.commit('toggleSideBar', !$store.state.is_show_sidebar)"></div>
-            <div class="search-overlay" :class="{ show: $store.state.is_show_search }" @click="$store.commit('toggleSearch', !$store.state.is_show_search)"></div>
+            <div class="overlay" :class="{ show: !settings.is_show_sidebar }" @click="settings.toggleSideBar(!settings.is_show_sidebar)"></div>
+            <div class="search-overlay" :class="{ show: settings.is_show_search }" @click="settings.toggleSearch(!settings.is_show_search)"></div>
             <!-- END OVERLAY -->
 
             <!--  BEGIN SIDEBAR  -->
@@ -41,4 +41,7 @@
     import Sidebar from '@/components/layout/sidebar.vue';
     import Footer from '@/components/layout/footer.vue';
     import appSettings from '@/components/app-settings.vue';
+    import { useSettings } from '@/stores';
+
+    const settings = useSettings();
 </script>
